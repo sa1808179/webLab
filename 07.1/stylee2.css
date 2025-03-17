@@ -1,0 +1,73 @@
+/* crypto.css - Styling for Crypto Price Tracker */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+header {
+    background-color: #28a745;
+    color: white;
+    padding: 15px;
+    font-size: 24px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+section {
+    background: white;
+    padding: 20px;
+    margin: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+}
+
+h2 {
+    color: #333;
+    text-align: center;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+#crypto-list {
+    list-style: none;
+    padding: 0;
+}
+
+#crypto-list li {
+    background: #eef;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#crypto-list img {
+    margin-right: 10px;
+}
