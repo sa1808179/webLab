@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Facts</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Country Facts Explorer</h1>
+    </header>
+    
+    <main>
+        <section class="dropdowns">
+            <label for="regions">Select Region:</label>
+            <select id="regions">
+                <option value="">-- Choose a Region --</option>
+            </select>
+
+            <label for="subregions">Select Subregion:</label>
+            <select id="subregions" disabled>
+                <option value="">-- Choose a Subregion --</option>
+            </select>
+
+            <label for="countries">Select Country:</label>
+            <select id="countries" disabled>
+                <option value="">-- Choose a Country --</option>
+            </select>
+        </section>
+        
+        <section class="facts">
+            <h2>Country Facts</h2>
+            <table id="facts">
+                <tr><th>Attribute</th><th>Value</th></tr>
+            </table>
+        </section>
+    </main>
+    
+    <script src="script.js"></script>
+</body>
+</html>

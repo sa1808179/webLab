@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking Application</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Banking Application</h1>
+    </header>
+    
+    <main>
+        <section class="account-form">
+            <h2>Add a New Account</h2>
+            <form id="account-form">
+                <label for="account-type">Account Type:</label>
+                <select id="account-type">
+                    <option value="Savings">Savings</option>
+                    <option value="Current">Current</option>
+                </select>
+                
+                <label for="initial-balance">Initial Balance:</label>
+                <input type="number" id="initial-balance" required>
+                
+                <button type="submit">Create Account</button>
+            </form>
+        </section>
+
+        <section class="account-actions">
+            <h2>Account Actions</h2>
+            <label for="account-id">Account ID:</label>
+            <input type="text" id="account-id" required>
+            
+            <button id="deposit-btn">Deposit</button>
+            <button id="withdraw-btn">Withdraw</button>
+            <button id="delete-btn">Delete Account</button>
+        </section>
+
+        <section class="accounts-list">
+            <h2>All Accounts</h2>
+            <button id="fetch-accounts">Show Accounts</button>
+            <pre id="accounts-output"></pre>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

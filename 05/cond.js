@@ -31,3 +31,4 @@ switch (day) {
         console.log("A regular day.");
 }
 
+console.log("Condition script is running...");

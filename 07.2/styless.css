@@ -1,0 +1,83 @@
+/* styles.css - Task Tracker Styling */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+header {
+    background-color: #007BFF;
+    color: white;
+    padding: 15px;
+    font-size: 24px;
+}
+
+.task-input {
+    margin: 20px auto;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+input {
+    width: 60%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    color: white;
+}
+
+#add-task-btn {
+    background-color: #28a745;
+}
+
+#clear-tasks-btn {
+    background-color: #dc3545;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    width: 50%;
+    margin: auto;
+}
+
+li {
+    background: white;
+    padding: 10px;
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+button.complete, button.delete {
+    padding: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+button.complete {
+    background-color: #007BFF;
+}
+
+button.delete {
+    background-color: #dc3545;
+}

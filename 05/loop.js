@@ -41,3 +41,6 @@ for (let i = 1; i <= 5; i++) {
     console.log(i);
 }
 // Output: 1, 2, 4, 5 (3 is skipped)
+
+
+console.log("Loop script is running...");
