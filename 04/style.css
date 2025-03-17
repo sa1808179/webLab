@@ -1,0 +1,116 @@
+/* General Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+header, footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #007BFF;
+    color: white;
+    justify-content: space-between;
+}
+
+/* Flexbox Navigation Bar */
+nav {
+    display: flex;
+    justify-content: center;
+    background-color: #333;
+    padding: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+}
+
+nav a:hover {
+    background-color: #007BFF;
+    border-radius: 5px;
+}
+
+
+#sections{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+/* Flexbox Layout */
+.main-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.section {
+    flex: 1;
+    min-width: 300px;
+    padding: 20px;
+    background: white;
+    border: 1px solid #ccc;
+    margin: 10px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid Layout */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.grid-item {
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design with Breakpoints */
+@media screen and (min-width: 600px) {
+    .main-container {
+        flex-direction: row;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* RAM Gallery Layout */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    padding: 20px;
+}
+
+.gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
