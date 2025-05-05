@@ -1,0 +1,137 @@
+✅ STEP 1: Set Up the Project
+
+1. Create a new Next.js app:
+npx create-next-app@latest final --app
+
+
+
+
+2. Initialize Prisma and SQLite
+npm install prisma @prisma/client
+npx prisma init
+
+
+In .env, add this:
+
+DATABASE_URL="file:./dev.db"
+
+
+✅ STEP 2: Define Your Database Schema
+
+In prisma/schema.prisma, paste this:
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Vehicle {
+  id         String      @id @default(cuid())
+  plate      String      @unique
+  owner      String
+  violations Violation[]
+}
+
+model Violation {
+  id        String   @id @default(cuid())
+  category  String
+  date      DateTime
+  paid      Boolean  @default(false)
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id])
+  vehicleId String
+}
+Then run:
+
+npx prisma migrate dev --name init
+npx prisma generate
+
+
+✅ STEP 3: Create Repositories
+
+In a new folder repos/, create:
+
+prisma.js:
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
+export default prisma
+vehicles.js:
+import prisma from './prisma'
+
+export async function getVehicles() {
+  return await prisma.vehicle.findMany({ include: { violations: true } })
+}
+
+export async function createVehicle(data) {
+  return await prisma.vehicle.create({ data })
+}
+violations.js:
+import prisma from './prisma'
+
+export async function addViolation(vehicleId, data) {
+  return await prisma.violation.create({
+    data: {
+      ...data,
+      vehicleId,
+      date: new Date(data.date),
+    },
+  })
+}
+✅ STEP 4: Set Up Your API Routes
+
+Create folders like this:
+
+app/api/vehicles/route.js
+app/api/vehicles/[id]/violations/route.js
+app/api/vehicles/[id]/violations/[vid]/route.js
+Example: app/api/vehicles/route.js:
+
+import { getVehicles, createVehicle } from '@/repos/vehicles'
+
+export async function GET() {
+  const data = await getVehicles()
+  return Response.json(data)
+}
+
+export async function POST(request) {
+  const body = await request.json()
+  const newVehicle = await createVehicle(body)
+  return Response.json(newVehicle, { status: 201 })
+}
+✅ STEP 5: Build the Client UI
+
+In app/page.jsx:
+
+Use useState + useEffect to fetch data
+Render list of vehicles and violations
+Add forms for creating vehicles/violations
+Add buttons for "pay" and "delete"
+✅ STEP 6: Run the Project
+
+npm run dev
+Visit:
+
+http://localhost:3000
+✅ STEP 7: Test in Postman
+
+Use:
+
+GET http://localhost:3000/api/vehicles
+POST to create vehicles or violations
+PATCH to mark as paid
+DELETE to remove violations
+Export the collection to postman.json.
+
+✅ STEP 8: Submit
+
+Take screenshots of the working page.
+Put them in a results/ or screenshots/ folder.
+Push the full project with:
+app/
+repos/
+prisma/schema.prisma
+results/postman.json
+readme.md with your name and tasks.

@@ -1,0 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Vehicle {
+  id         String      @id @default(cuid()) // Unique vehicle ID
+  plate      String      @unique // Unique plate number
+  owner      String // Owner's name
+  violations Violation[] // Relation: 1 vehicle → many violations
+}
+
+model Violation {
+  id        String   @id @default(cuid()) // Unique violation ID
+  category  String // Type of violation (e.g., speeding)
+  date      DateTime // Date of the violation
+  paid      Boolean  @default(false) // Whether it's paid or not
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id])
+  vehicleId String // Foreign key pointing to vehicle
+}
