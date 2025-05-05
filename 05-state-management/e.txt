@@ -1,0 +1,53 @@
+File	Purpose
+layout.jsx	Root layout; imports global styles from styles.css.
+page.jsx	Main client page. Manages overall state, fetches data, renders <Collection />.
+actions.js	Handles local (non-persistent) server actions like marking favorites.
+utils.js	Utility functions (e.g., for extracting tags, sorting, etc.).
+styles.css	Global styles reused from earlier assignment.
+error-alert.jsx	Reusable error message component (likely styled).
+api/	API folder (optional, may hold local handlers for actions if needed).
+
+
+
+
+
+
+
+
+Component	Purpose
+collection.jsx	Displays all decks and their tags. Receives data and handlers from page.jsx.
+deck.jsx	Renders one deck, a form to create a slide, and its slides.
+slide.jsx	Renders one slide, a form to add a card, and its cards.
+card.jsx	Renders one card with content based on its type. Handles "favorite" interaction.
+
+
+
+
+
+🚀 HOW TO RUN & TEST
+
+
+1. ✅ Install dependencies
+cd /path/to/S_05-state-management
+npm install
+2. 🛠️ Add .env file (if not already)
+NEXT_PUBLIC_API_BASE=https://queue.qa/cmps350/assignments/04-restful-interfaces/api
+✅ Make sure this URL works. If you're running locally instead, change to:
+
+NEXT_PUBLIC_API_BASE=http://localhost:3000/api
+3. 🔄 Optional: Generate Prisma Client
+Only if you plan to test local DB:
+
+npx prisma generate
+4. ▶️ Start the dev server
+npm run dev
+Open in browser:
+
+http://localhost:3000
+5. 🧪 Test in Postman (optional)
+You can test API endpoints like:
+
+GET /api → list decks
+POST /api → create a deck
+GET /api/:deck → get slides
+etc.

@@ -1,0 +1,81 @@
+✅ Step-by-Step: How to Run & Test Your API with Postman
+
+🟢 1. Start Your App
+Make sure your app is running on your local machine:
+
+npm run dev
+Check that it's accessible in the browser:
+
+http://localhost:3000
+Or whatever port you’ve set (e.g., http://localhost:3002).
+
+🟠 2. Open Postman
+Download and install Postman: https://www.postman.com/downloads
+Open the app.
+🟣 3. Test GET /api — Fetch All Decks
+Click New > HTTP Request.
+Set method to GET.
+Enter URL:
+http://localhost:3000/api
+Click Send.
+✅ You should see a list of decks.
+
+🔵 4. Test POST /api — Create a New Deck
+Set method to POST.
+URL:
+http://localhost:3000/api
+Go to the Body tab → choose raw → select JSON.
+Paste this:
+{
+  "title": "Web Dev Deck"
+}
+Click Send.
+✅ Should return the created deck with 201 Created.
+
+🔴 5. Test GET /api/:deckId — Get Slides in Deck
+Use a valid deckId from previous response.
+Set method to GET.
+URL:
+http://localhost:3000/api/deck1
+Or replace with your actual ID.
+✅ Should return slides in the deck.
+
+🟤 6. Test POST /api/:deckId — Add a Slide to a Deck
+Set method to POST.
+URL:
+http://localhost:3000/api/deck1
+Body → JSON:
+{
+  "title": "Intro Slide"
+}
+Click Send.
+✅ Should return the new slide.
+
+🟡 7. Test DELETE /api/:deckId — Delete Deck (if empty)
+Set method to DELETE.
+URL:
+http://localhost:3000/api/deck1
+Click Send.
+✅ Should succeed if deck has no slides.
+
+🧪 8. Test All Routes
+Repeat steps for:
+
+/api/:deckId/:slideId
+/api/:deckId/:slideId/:cardId
+Refer to your route structure and implement tests for:
+
+GET, POST, PATCH, and DELETE for cards and slides.
+📤 9. Export the Postman Collection
+Click on your Collection name in the sidebar.
+Click ... > Export.
+Choose version 2.1.
+Save it as postman.json.
+Put it inside your project folder: results/postman.json.
+📸 10. Take Screenshots for Submission
+Capture screenshots of:
+
+All successful test responses.
+Each method tested.
+Save them in a folder like results/screenshots.
+

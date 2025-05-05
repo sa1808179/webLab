@@ -1,0 +1,457 @@
+{
+	"info": {
+		"_postman_id": "47572ce1-bc33-4a3b-8e39-d53d64912a70",
+		"name": "RESTful Interfaces",
+		"description": "A collection for testing the Learning Materials RESTful API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22481102"
+	},
+	"item": [
+		{
+			"name": "Decks",
+			"item": [
+				{
+					"name": "Get All Decks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api"
+							]
+						},
+						"description": "Return all the decks in the collection."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Deck",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Web Development Fundamentals\",\n  \"tags\": [\"web\", \"development\", \"frontend\", \"backend\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api"
+							]
+						},
+						"description": "Create a deck based on the request body and return it."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Deck",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/:deck",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								":deck"
+							],
+							"variable": [
+								{
+									"key": "deck",
+									"value": "deck1",
+									"description": "The ID of the deck to delete"
+								}
+							]
+						},
+						"description": "Delete the deck having the provided identifier if empty."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for managing learning material decks"
+		},
+		{
+			"name": "Slides",
+			"item": [
+				{
+					"name": "Get Slides in Deck",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/:deck",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								":deck"
+							],
+							"variable": [
+								{
+									"key": "deck",
+									"value": "deck1",
+									"description": "The ID of the deck"
+								}
+							]
+						},
+						"description": "Return all the slides in a deck."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Slide in Deck",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Frontend Technologies\",\n  \"tags\": [\"html\", \"css\", \"javascript\", \"frameworks\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/:deck",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								":deck"
+							],
+							"variable": [
+								{
+									"key": "deck",
+									"value": "deck1",
+									"description": "The ID of the deck"
+								}
+							]
+						},
+						"description": "Create a slide based on the request body and return it."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Slide",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/:deck/:slide",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								":deck",
+								":slide"
+							],
+							"variable": [
+								{
+									"key": "deck",
+									"value": "deck1",
+									"description": "The ID of the deck"
+								},
+								{
+									"key": "slide",
+									"value": "slide1",
+									"description": "The ID of the slide to delete"
+								}
+							]
+						},
+						"description": "Delete the slide having the provided identifier if empty."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for managing slides within decks"
+		},
+		{
+			"name": "Cards",
+			"item": [
+				{
+					"name": "Get Cards in Slide",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/:deck/:slide",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								":deck",
+								":slide"
+							],
+							"variable": [
+								{
+									"key": "deck",
+									"value": "deck1",
+									"description": "The ID of the deck"
+								},
+								{
+									"key": "slide",
+									"value": "slide2",
+									"description": "The ID of the slide"
+								}
+							]
+						},
+						"description": "Return all the cards in a slide."
+					},
+					"response": []
+				},
+				{
+					"name": "Create String List Card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"string-list\",\n  \"title\": \"JavaScript Frameworks\",\n  \"tags\": [\"javascript\", \"frameworks\", \"frontend\"],\n  \"data\": [\"React\", \"Angular\", \"Vue\", \"Svelte\", \"Next.js\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/:deck/:slide",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								":deck",
+								":slide"
+							],
+							"variable": [
+								{
+									"key": "deck",
+									"value": "deck1",
+									"description": "The ID of the deck"
+								},
+								{
+									"key": "slide",
+									"value": "slide2",
+									"description": "The ID of the slide"
+								}
+							]
+						},
+						"description": "Create a string-list card based on the request body and return it."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Playing Card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"playing-card\",\n  \"title\": \"Jack of Spades\",\n  \"tags\": [\"cards\", \"spades\"],\n  \"data\": {\n    \"symbol\": \"spade\",\n    \"value\": \"J\",\n    \"suit\": \"♠\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/:deck/:slide",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								":deck",
+								":slide"
+							],
+							"variable": [
+								{
+									"key": "deck",
+									"value": "deck1",
+									"description": "The ID of the deck"
+								},
+								{
+									"key": "slide",
+									"value": "slide2",
+									"description": "The ID of the slide"
+								}
+							]
+						},
+						"description": "Create a playing-card card based on the request body and return it."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Foreign Word Card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"foreign-word\",\n  \"title\": \"Bonjour\",\n  \"tags\": [\"french\", \"greeting\"],\n  \"data\": {\n    \"pronunciation\": \"bon-zhoor\",\n    \"translation\": \"Hello\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/:deck/:slide",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								":deck",
+								":slide"
+							],
+							"variable": [
+								{
+									"key": "deck",
+									"value": "deck1",
+									"description": "The ID of the deck"
+								},
+								{
+									"key": "slide",
+									"value": "slide2",
+									"description": "The ID of the slide"
+								}
+							]
+						},
+						"description": "Create a foreign-word card based on the request body and return it."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Card",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/:deck/:slide/:card",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								":deck",
+								":slide",
+								":card"
+							],
+							"variable": [
+								{
+									"key": "deck",
+									"value": "deck1",
+									"description": "The ID of the deck"
+								},
+								{
+									"key": "slide",
+									"value": "slide2",
+									"description": "The ID of the slide"
+								},
+								{
+									"key": "card",
+									"value": "cma906rtv0004ep4wildjowxr",
+									"description": "The ID of the card to delete"
+								}
+							]
+						},
+						"description": "Delete the card having the provided identifier."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Card",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Updated Card Title\",\n  \"tags\": [\"updated\", \"modified\"],\n  \"data\": {\n    \"pronunciation\": \"updated-pronunciation\",\n    \"translation\": \"Updated description of the term\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/:deck/:slide/:card",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								":deck",
+								":slide",
+								":card"
+							],
+							"variable": [
+								{
+									"key": "deck",
+									"value": "deck1",
+									"description": "The ID of the deck"
+								},
+								{
+									"key": "slide",
+									"value": "slide2",
+									"description": "The ID of the slide"
+								},
+								{
+									"key": "card",
+									"value": "cma904s7z0002ep4wqytgzt9g",
+									"description": "The ID of the card to update"
+								}
+							]
+						},
+						"description": "Update the card having the provided identifier based on the request body."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for managing cards within slides"
+		}
+	]
+}

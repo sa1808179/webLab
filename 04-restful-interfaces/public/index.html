@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04 Restful Interfaces</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>04 Restful Interfaces</h1>
+    <p>This is a RESTful API for managing decks, slides, and cards. The API allows you to create, read, update, and delete resources in a hierarchical structure.</p>
+    <p>Use the Postman collection to interact with the API endpoints and explore the functionality.</p>
+    
+    <h2>API Endpoints</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>URL</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="method method-get">GET</span></td>
+          <td>/api</td>
+          <td>Retrieve all decks in the collection with slide counts.</td>
+        </tr>
+        <tr>
+          <td><span class="method method-post">POST</span></td>
+          <td>/api</td>
+          <td>Create a new deck with the provided title and optional tags.</td>
+        </tr>
+        <tr>
+          <td><span class="method method-delete">DELETE</span></td>
+          <td>/api/:deck</td>
+          <td>Delete a deck if it contains no slides.</td>
+        </tr>
+        <tr>
+          <td><span class="method method-get">GET</span></td>
+          <td>/api/:deck</td>
+          <td>Retrieve all slides in a specific deck with card counts.</td>
+        </tr>
+        <tr>
+          <td><span class="method method-post">POST</span></td>
+          <td>/api/:deck</td>
+          <td>Create a new slide in the specified deck.</td>
+        </tr>
+        <tr>
+          <td><span class="method method-delete">DELETE</span></td>
+          <td>/api/:deck/:slide</td>
+          <td>Delete a slide if it contains no cards.</td>
+        </tr>
+        <tr>
+          <td><span class="method method-get">GET</span></td>
+          <td>/api/:deck/:slide</td>
+          <td>Retrieve all cards in a specific slide.</td>
+        </tr>
+        <tr>
+          <td><span class="method method-post">POST</span></td>
+          <td>/api/:deck/:slide</td>
+          <td>Create a new card in the specified slide.</td>
+        </tr>
+        <tr>
+          <td><span class="method method-delete">DELETE</span></td>
+          <td>/api/:deck/:slide/:card</td>
+          <td>Delete a specific card.</td>
+        </tr>
+        <tr>
+          <td><span class="method method-patch">PATCH</span></td>
+          <td>/api/:deck/:slide/:card</td>
+          <td>Update a specific card's properties.</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    
+       
+    
+    
+    <h2>Testing</h2>
+    <p>Use the included Postman collection to test the API endpoints:</p>
+    <ul>
+      <li>Import <code>postman.json</code> into Postman</li>
+      <li>Run the database migrations and seed data with <code>npm run prisma:migrate</code> and <code>npm run prisma:seed</code></li>
+      <li>Start the server with <code>npm run dev</code></li>
+      <li>Use the collection to test the endpoints</li>
+    </ul>
+    
+   
+  </div>
+
+  <footer>
+    <p>API Documentation &copy; 2025</p>
+  </footer>
+
+  <script src="index.js"></script>
+</body>
+</html>

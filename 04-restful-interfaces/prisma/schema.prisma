@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+
+//Each Deck contains multiple Slides.
+//Each Slide belongs to a Deck and contains multiple Cards.
+//Each Card belongs to a Slide and is categorized by CardType.
+//cuid() is used to generate unique IDs.
+// The Prisma Client generator configuration
+generator client {
+  provider = "prisma-client-js" // Specifies that we want to use the JavaScript Prisma client
+  output   = "../node_modules/.prisma/client" // Custom output directory for generated client
+}
+
+// The database connection settings
+datasource db {
+  provider = "sqlite"              // We're using SQLite as the database engine
+  url      = env("DATABASE_URL")   // The database file location is set in the .env file
+}
+
+//////////////////////////////
+//     Prisma Data Models   //
+//////////////////////////////
+
+// Represents the type/category of a card (e.g., string-list, playing-card, foreign-word)
+model CardType {
+  id    String @id @default(cuid()) // Unique ID generated using cuid()
+  type  String @unique              // The type value must be unique (e.g., 'string-list')
+  cards Card[]                      // One-to-many relation: A CardType can be linked to many cards
+}
+
+// Represents a card that belongs to a slide and has a specific type
+model Card {
+  id      String   @id @default(cuid()) // Unique ID for each card
+  type    CardType @relation(fields: [typeId], references: [id]) // Foreign key relation to CardType
+  typeId  String   // Stores the ID of the associated CardType
+
+  title   String?  // Optional card title (can be null)
+  tags    Json     @default("[]") // Array of tags, stored as JSON, default is empty array
+  data    Json     // Main content of the card; can be text, list, object, etc.
+
+  slide   Slide?   @relation(fields: [slideId], references: [id]) // Optional relation to a Slide
+  slideId String?  // Foreign key to the Slide (nullable)
+}
+
+// Represents a slide that belongs to a deck and contains multiple cards
+model Slide {
+  id     String @id @default(cuid()) // Unique ID for the slide
+  title  String                      // Title of the slide (e.g., "Design Colors")
+  tags   Json   @default("[]")       // Array of descriptive tags in JSON format
+
+  cards  Card[]                      // One-to-many: each slide has many cards
+
+  deck   Deck?  @relation(fields: [deckId], references: [id]) // Optional relation to the parent Deck
+  deckId String? // Foreign key to the Deck (nullable)
+}
+
+// Represents a collection of slides (e.g., a study module or topic)
+model Deck {
+  id     String  @id @default(cuid()) // Unique ID for the deck
+  title  String                      // Name/title of the deck (e.g., "Learning Materials")
+  tags   Json    @default("[]")      // Array of tags for categorizing the deck
+
+  slides Slide[]                     // One-to-many: a deck contains multiple slides
+}
