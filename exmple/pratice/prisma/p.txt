@@ -13,7 +13,10 @@ npx prisma init
 
 In .env, add this:
 
-DATABASE_URL="file:./dev.db"
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
 
 
 ✅ STEP 2: Define Your Database Schema
@@ -80,6 +83,69 @@ export async function addViolation(vehicleId, data) {
     },
   })
 }
+
+
+
+create a touch prisma/seed.js
+to fill out the data 
+✍️ 2. Paste This Code Inside seed.js
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
+async function main() {
+  // Create a vehicle with one violation
+  const vehicle = await prisma.vehicle.create({
+    data: {
+      plate: "QTR123",
+      owner: "Saja Abdelmalik",
+      violations: {
+        create: [
+          {
+            category: "Speeding",
+            date: new Date("2025-05-01"),
+            paid: false,
+          },
+          {
+            category: "Red Light",
+            date: new Date("2025-05-03"),
+            paid: true,
+          },
+        ],
+      },
+    },
+  })
+
+  console.log("🚗 Seeded vehicle with violations:", vehicle)
+}
+
+main()
+  .catch((e) => {
+    console.error(e)
+    process.exit(1)
+  })
+  .finally(async () => {
+    await prisma.$disconnect()
+  })
+  
+⚙️ 3. Add This Script to package.json
+In your package.json, add under "scripts":
+
+"seed": "node prisma/seed.js"
+▶️ 4. Run the Seed Script
+Now run it in the terminal:
+
+npm run seed
+✅ 5. Check Prisma Studio
+Run:
+
+npx prisma studio
+Open http://localhost:5555 and now you should see:
+
+Vehicle table with 1 entry
+Violation table with 2 entries linked to the vehicle 
+
+
 ✅ STEP 4: Set Up Your API Routes
 
 Create folders like this:

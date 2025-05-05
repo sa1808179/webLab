@@ -30,3 +30,22 @@ model Violation {
   vehicle   Vehicle  @relation(fields: [vehicleId], references: [id])
   vehicleId String                                // Foreign key pointing to vehicle
 }
+
+
+
+//# 1. Initialize Prisma if not already done
+//npx prisma init
+
+//# 2. Create and migrate your SQLite database
+// npx prisma migrate dev --name vehicle-violation-models
+
+//🔁 Step 3: Re-run the migrate command
+//npx prisma migrate dev --name vehicle-violation-models
+//That will:
+
+//Create your SQLite database at prisma/dev.db
+//Apply your schema
+//Generate the Prisma Client
+
+//# 3. Generate the Prisma Client
+//npx prisma generate

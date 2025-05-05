@@ -1,0 +1,54 @@
+Task 4: Test API Methods Using Postman and Export Collection
+
+Step 1: Open Postman and Create a New Collection
+
+Open Postman.
+Click on the "Collections" tab on the left sidebar.
+Click the "New Collection" button.
+Name the collection, for example, "Vehicle Violations API".
+Step 2: Add Requests to the Collection
+
+For each API endpoint you've implemented, add a corresponding request:
+
+GET /api/vehicles
+Method: GET
+URL: http://localhost:3000/api/vehicles
+POST /api/vehicles
+Method: POST
+URL: http://localhost:3000/api/vehicles
+Body (JSON):
+{
+  "plate": "ABC123",
+  "owner": "John Doe"
+}
+POST /api/vehicles/:id/violations
+Method: POST
+URL: http://localhost:3000/api/vehicles/{vehicleId}/violations
+Replace {vehicleId} with an actual vehicle ID.
+Body (JSON):
+{
+  "category": "Speeding",
+  "date": "2025-05-01",
+  "paid": false
+}
+PATCH /api/vehicles/:id/violations/:vid
+Method: PATCH
+URL: http://localhost:3000/api/vehicles/{vehicleId}/violations/{violationId}
+Replace {vehicleId} and {violationId} with actual IDs.
+Body (JSON):
+{
+  "paid": true
+}
+DELETE /api/vehicles/:id/violations/:vid
+Method: DELETE
+URL: http://localhost:3000/api/vehicles/{vehicleId}/violations/{violationId}
+Replace {vehicleId} and {violationId} with actual IDs.
+Step 3: Export the Collection
+
+Click on the three dots (...) next to your collection name.
+Select "Export".
+Choose the format Collection v2.1.
+Click "Export" and save the file as postman.json.
+Step 4: Include the Exported File in Your Project
+
+Place the exported postman.json file into your project directory under final/postman.json.

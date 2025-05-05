@@ -1,0 +1,114 @@
+Create server-side repository services for Vehicles and Violations with full CRUD operations and meaningful error handling.
+
+✅ Step-by-Step Solution for Task 2
+
+You’ll create two files inside a folder called repos/:
+
+repos/
+├── prisma.js
+├── vehicles.js
+└── violations.js
+✅ 1. repos/prisma.js
+This file sets up the Prisma Client singleton:
+
+import { PrismaClient } from '@prisma/client'
+
+const prisma = globalThis.prisma || new PrismaClient()
+
+if (process.env.NODE_ENV !== 'production') globalThis.prisma = prisma
+
+export default prisma
+✅ 2. repos/vehicles.js
+import prisma from './prisma.js'
+
+// Get all vehicles with violations
+export async function getVehicles() {
+  try {
+    return await prisma.vehicle.findMany({
+      include: { violations: true },
+    })
+  } catch (e) {
+    throw new Error('Failed to fetch vehicles')
+  }
+}
+
+// Create a new vehicle
+export async function createVehicle(data) {
+  try {
+    if (!data.plate || !data.owner) {
+      throw new Error('Plate and owner are required')
+    }
+
+    return await prisma.vehicle.create({ data })
+  } catch (e) {
+    if (e.code === 'P2002') {
+      throw new Error('Plate number already exists')
+    }
+    throw new Error('Failed to create vehicle')
+  }
+}
+
+// Update a vehicle (optional)
+export async function updateVehicle(id, data) {
+  try {
+    return await prisma.vehicle.update({
+      where: { id },
+      data,
+    })
+  } catch {
+    throw new Error('Failed to update vehicle')
+  }
+}
+
+// Delete a vehicle
+export async function deleteVehicle(id) {
+  try {
+    return await prisma.vehicle.delete({
+      where: { id },
+    })
+  } catch {
+    throw new Error('Failed to delete vehicle (may have linked violations)')
+  }
+}
+✅ 3. repos/violations.js
+import prisma from './prisma.js'
+
+// Add violation to a vehicle
+export async function addViolation(vehicleId, data) {
+  try {
+    return await prisma.violation.create({
+      data: {
+        ...data,
+        vehicleId,
+        date: new Date(data.date),
+      },
+    })
+  } catch {
+    throw new Error('Failed to add violation')
+  }
+}
+
+// Update violation (e.g., mark as paid)
+export async function updateViolation(vehicleId, id, data) {
+  try {
+    return await prisma.violation.update({
+      where: { id },
+      data,
+    })
+  } catch {
+    throw new Error('Failed to update violation')
+  }
+}
+
+// Delete violation (only if paid)
+export async function deleteViolation(vehicleId, id) {
+  try {
+    const violation = await prisma.violation.findUnique({ where: { id } })
+    if (!violation) throw new Error('Violation not found')
+    if (!violation.paid) throw new Error('Cannot delete an unpaid violation')
+
+    return await prisma.violation.delete({ where: { id } })
+  } catch (e) {
+    throw new Error(e.message || 'Failed to delete violation')
+  }
+}

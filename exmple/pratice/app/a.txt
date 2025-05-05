@@ -1,0 +1,122 @@
+Building the API layer that exposes your repository methods using Next.js App Router.
+
+✅ Goal
+
+Build app/api/vehicles/... routes.
+Use try...catch to:
+Return error messages from repositories.
+Set correct status codes (e.g. 200, 400, 404).
+✅ File Structure
+
+app/
+└── api/
+    └── vehicles/
+        ├── route.js                         ← GET all + POST vehicle
+        └── [id]/
+            ├── violations/
+            │   ├── route.js                 ← GET/POST violation
+            │   └── [vid]/
+            │       └── route.js             ← PATCH/DELETE violation
+✅ Step-by-Step API Implementation
+
+cd app
+🔹 Step 2: Create the api/vehicles folder
+mkdir -p api/vehicles
+🔹 Step 3: Go into vehicles and create the main route.js file
+cd api/vehicles
+touch route.js
+✅ This file is for:
+
+GET /api/vehicles → Get all vehicles
+POST /api/vehicles → Add a vehicle
+🔹 Step 4: Create dynamic route for vehicle ID + violations
+mkdir -p [id]/violations
+cd [id]/violations
+touch route.js
+✅ This file is for:
+
+POST /api/vehicles/:id/violations → Add a violation to a vehicle
+🔹 Step 5: Create nested route for specific violation ID
+mkdir -p "[id]/violations"
+cd "[id]/violations"
+touch route.js
+
+✅ This file is for:
+
+PATCH /api/vehicles/:id/violations/:vid → Update violation
+DELETE /api/vehicles/:id/violations/:vid → Delete violation
+
+
+
+🔹 1. app/api/vehicles/route.js
+import { getVehicles, createVehicle } from "@/repos/vehicles"
+import { NextResponse } from "next/server"
+
+export async function GET() {
+  try {
+    const vehicles = await getVehicles()
+    return NextResponse.json(vehicles, { status: 200 })
+  } catch (e) {
+    return NextResponse.json({ error: e.message }, { status: 500 })
+  }
+}
+
+export async function POST(request) {
+  try {
+    const body = await request.json()
+    const vehicle = await createVehicle(body)
+    return NextResponse.json(vehicle, { status: 201 })
+  } catch (e) {
+    return NextResponse.json({ error: e.message }, { status: 400 })
+  }
+}
+🔹 2. app/api/vehicles/[id]/violations/route.js
+import { addViolation } from "@/repos/violations"
+import { NextResponse } from "next/server"
+
+export async function POST(request, { params }) {
+  try {
+    const data = await request.json()
+    const { id } = params
+
+    const violation = await addViolation(id, data)
+    return NextResponse.json(violation, { status: 201 })
+  } catch (e) {
+    return NextResponse.json({ error: e.message }, { status: 400 })
+  }
+}
+🔹 3. app/api/vehicles/[id]/violations/[vid]/route.js
+import { updateViolation, deleteViolation } from "@/repos/violations"
+import { NextResponse } from "next/server"
+
+export async function PATCH(request, { params }) {
+  try {
+    const { id, vid } = params
+    const data = await request.json()
+
+    const updated = await updateViolation(id, vid, data)
+    return NextResponse.json(updated, { status: 200 })
+  } catch (e) {
+    return NextResponse.json({ error: e.message }, { status: 400 })
+  }
+}
+
+export async function DELETE(request, { params }) {
+  try {
+    const { id, vid } = params
+
+    const deleted = await deleteViolation(id, vid)
+    return NextResponse.json(deleted, { status: 200 })
+  } catch (e) {
+    const status = e.message.includes("unpaid") ? 403 : 400
+    return NextResponse.json({ error: e.message }, { status })
+  }
+}
+✅ Endpoints Summary (with HTTP status codes)
+
+Method	Route	Action	Status Codes
+GET	/api/vehicles	List all vehicles	200, 500
+POST	/api/vehicles	Create a vehicle	201, 400
+POST	/api/vehicles/:id/violations	Add violation	201, 400
+PATCH	/api/vehicles/:id/violations/:vid	Update violation (e.g., paid)	200, 400
+DELETE	/api/vehicles/:id/violations/:vid	Delete paid violation	200, 403, 400
